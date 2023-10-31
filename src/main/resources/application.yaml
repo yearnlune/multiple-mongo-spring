@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      host:
+      port:
+      database:
+      username:
+      password:
+      authentication-database:
+      field-naming-strategy:
+
+app:
+  secondary:
+    host:
+    port:
+    database:
+    username:
+    password:
+    authentication-database:
+    field-naming-strategy:
