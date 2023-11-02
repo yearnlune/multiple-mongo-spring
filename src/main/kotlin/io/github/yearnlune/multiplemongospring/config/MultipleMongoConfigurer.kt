@@ -21,7 +21,7 @@ abstract class MultipleMongoConfigurer(
             "mongodb://${appProperties.username}" +
                     ":${URLEncoder.encode(appProperties.password, StandardCharsets.UTF_8)}" +
                     "@${appProperties.host}" +
-                    ":${appProperties.port}" +
+                    ":${appProperties.port!!}" +
                     "/${appProperties.database}" +
                     "?authSource=${appProperties.authenticationDatabase}"
         )
@@ -41,7 +41,7 @@ abstract class MultipleMongoConfigurer(
         val mappingContext = MongoMappingContext()
         mappingContext.setSimpleTypeHolder(mongoCustomConversions.simpleTypeHolder)
         fieldNamingStrategy?.let {
-            mappingContext.setFieldNamingStrategy(BeanUtils.instantiateClass(fieldNamingStrategy) as FieldNamingStrategy)
+            mappingContext.setFieldNamingStrategy(BeanUtils.instantiateClass(it) as FieldNamingStrategy)
         }
         mappingContext.afterPropertiesSet()
 
@@ -54,11 +54,11 @@ abstract class MultipleMongoConfigurer(
     }
 
     data class MongodbProperties(
-        var host: String? = null,
+        var host: String = "",
         var port: Int? = 27017,
-        var database: String? = null,
-        var username: String? = null,
-        var password: String? = null,
+        var database: String = "",
+        var username: String = "",
+        var password: String = "",
         var authenticationDatabase: String = "admin",
         var fieldNamingStrategy: Class<*>? = null,
     ) {
